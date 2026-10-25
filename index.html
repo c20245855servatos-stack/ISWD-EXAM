@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KWKC Hardware — Tools, Supplies & Home Repair</title>
+  <meta name="description" content="KWKC Hardware is your neighborhood source for tools, building supplies, and honest advice." />
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <style type="text/tailwindcss">
+    @custom-variant dark (&:where(.dark, .dark *));
+
+    @theme {
+      --color-dominant-50:  #f8f5f0;
+      --color-dominant-100: #ece7de;
+      --color-dominant-800: #262a33;
+      --color-dominant-900: #16181d;
+
+      --color-secondary-500: #3d4451;
+      --color-secondary-600: #2f3540;
+
+      --color-accent-400: #f08a44;
+      --color-accent-500: #ea6a1f;
+      --color-accent-600: #c8540f;
+    }
+
+    @layer components {
+      .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg
+               bg-accent-500 px-6 py-3 text-sm font-semibold text-dominant-50
+               shadow-md shadow-accent-500/30
+               hover:bg-accent-600 focus-visible:outline-2
+               focus-visible:outline-offset-2 focus-visible:outline-accent-600
+               dark:bg-accent-500 dark:hover:bg-accent-400 dark:text-dominant-900;
+      }
+      .field {
+        @apply w-full rounded-lg border border-secondary-500/25 bg-white
+               px-4 py-3 text-dominant-900 placeholder:text-secondary-500/50
+               focus:border-accent-500 focus:outline-none focus:ring-2
+               focus:ring-accent-500/30
+               dark:border-dominant-100/15 dark:bg-dominant-800
+               dark:text-dominant-50 dark:placeholder:text-dominant-100/40;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-dominant-50 text-dominant-800 antialiased dark:bg-dominant-900 dark:text-dominant-50">
+
+  <div id="progressBar" class="fixed left-0 top-0 z-50 h-1 w-0 bg-accent-500"></div>
+
+  <header class="sticky top-0 z-40 border-b border-secondary-500/10 bg-dominant-50/85 backdrop-blur dark:border-dominant-100/10 dark:bg-dominant-900/85">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-8">
+      <a href="#hero" class="text-lg font-bold tracking-tight">
+        KWKC<span class="text-accent-500">.</span>Hardware
+      </a>
+
+      <nav aria-label="Primary">
+        <ul class="flex items-center gap-4 text-sm font-medium md:gap-8">
+          <li><a href="#services" class="hover:text-accent-500 dark:hover:text-accent-400">Services</a></li>
+          <li class="hidden md:block"><a href="#work" class="hover:text-accent-500 dark:hover:text-accent-400">Featured</a></li>
+          <li class="hidden md:block"><a href="#contact" class="hover:text-accent-500 dark:hover:text-accent-400">Contact</a></li>
+          <li>
+            <button id="darkModeToggle" type="button" aria-label="Toggle dark mode"
+              class="flex h-9 w-9 items-center justify-center rounded-lg border border-secondary-500/20 text-secondary-500 hover:bg-secondary-500/10 dark:border-dominant-100/20 dark:text-dominant-100 dark:hover:bg-dominant-100/10">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block h-5 w-5 dark:hidden" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden h-5 w-5 dark:block" aria-hidden="true">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="mx-auto max-w-6xl px-4 pb-16 pt-16 md:px-8 md:pb-24 md:pt-24">
+      <div class="grid items-center gap-10 md:grid-cols-2">
+        <div>
+          <p data-intro class="mb-4 text-sm font-semibold uppercase tracking-widest text-accent-600 dark:text-accent-400">
+            Your neighborhood hardware store
+          </p>
+          <h1 data-intro class="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+            Tools that last.<br />
+            <span class="text-secondary-500 dark:text-accent-400">Advice that helps.</span>
+          </h1>
+          <p data-intro class="mt-6 max-w-md text-base text-secondary-500 dark:text-dominant-100/75 md:text-lg">
+            From a single hinge to a full renovation — KWKC Hardware stocks the supplies
+            and shares the know-how to get the job done right.
+          </p>
+          <div data-intro class="mt-8 flex flex-wrap items-center gap-4">
+            <a href="#contact" class="btn-primary">Visit the store</a>
+            <button id="replayBtn" type="button"
+              class="text-sm font-semibold underline-offset-4 hover:underline">Replay intro</button>
+          </div>
+        </div>
+
+        <div data-intro class="relative">
+          <div class="aspect-[4/5] w-full rounded-3xl bg-gradient-to-br from-secondary-500 via-secondary-600 to-accent-500 shadow-2xl shadow-secondary-500/30"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="reveal mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24">
+      <h2 class="text-3xl font-bold tracking-tight md:text-4xl">What we do</h2>
+      <p class="mt-4 max-w-2xl text-secondary-500 dark:text-dominant-100/75">
+        We stock quality tools and building supplies for pros and weekend warriors alike.
+        Need a hand? Our staff are licensed tradespeople who love to explain the why —
+        not just sell you the what.
+      </p>
+
+      <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <li class="rounded-2xl border border-secondary-500/10 bg-white p-6 shadow-sm dark:border-dominant-100/10 dark:bg-dominant-800">
+          <h3 class="text-lg font-semibold">Tools &amp; Fasteners</h3>
+          <p class="mt-2 text-sm text-secondary-500 dark:text-dominant-100/70">Hand tools, power tools, and every screw, bolt, and anchor in between.</p>
+        </li>
+        <li class="rounded-2xl border border-secondary-500/10 bg-white p-6 shadow-sm dark:border-dominant-100/10 dark:bg-dominant-800">
+          <h3 class="text-lg font-semibold">Lumber &amp; Building</h3>
+          <p class="mt-2 text-sm text-secondary-500 dark:text-dominant-100/70">Cut-to-size timber, plywood, drywall, and insulation — in stock daily.</p>
+        </li>
+        <li class="rounded-2xl border border-secondary-500/10 bg-white p-6 shadow-sm dark:border-dominant-100/10 dark:bg-dominant-800">
+          <h3 class="text-lg font-semibold">Repair Advice</h3>
+          <p class="mt-2 text-sm text-secondary-500 dark:text-dominant-100/70">Free walk-in consultations with staff who've worked the trades.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="work" class="reveal mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24">
+      <h2 class="text-3xl font-bold tracking-tight md:text-4xl">Featured this month</h2>
+      <p class="mt-4 max-w-2xl text-secondary-500 dark:text-dominant-100/75">
+        A rotating selection of products our customers love — and the projects they've built with them.
+      </p>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <article class="overflow-hidden rounded-2xl border border-secondary-500/10 bg-white shadow-sm dark:border-dominant-100/10 dark:bg-dominant-800">
+          <div class="aspect-video bg-gradient-to-br from-accent-400 to-accent-600"></div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold">Cordless Drill Kit</h3>
+            <p class="mt-2 text-sm text-secondary-500 dark:text-dominant-100/70">20V brushless drill with two batteries and a 40-piece bit set.</p>
+          </div>
+        </article>
+        <article class="overflow-hidden rounded-2xl border border-secondary-500/10 bg-white shadow-sm dark:border-dominant-100/10 dark:bg-dominant-800">
+          <div class="aspect-video bg-gradient-to-br from-secondary-500 to-secondary-600"></div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold">Workbench Bundle</h3>
+            <p class="mt-2 text-sm text-secondary-500 dark:text-dominant-100/70">Solid pine bench with a steel vise and magnetic tool strip.</p>
+          </div>
+        </article>
+        <article class="overflow-hidden rounded-2xl border border-secondary-500/10 bg-white shadow-sm dark:border-dominant-100/10 dark:bg-dominant-800">
+          <div class="aspect-video bg-gradient-to-br from-dominant-800 to-secondary-600"></div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold">Paint &amp; Finishes</h3>
+            <p class="mt-2 text-sm text-secondary-500 dark:text-dominant-100/70">Low-VOC paints, stains, and sealants — mixed in-store to any color.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal mx-auto max-w-3xl px-4 py-16 md:px-8 md:py-24">
+      <h2 class="text-3xl font-bold tracking-tight md:text-4xl">Get in touch</h2>
+      <p class="mt-4 text-secondary-500 dark:text-dominant-100/75">
+        Questions about a project? Send us a message and we'll get back to you within a day.
+      </p>
+
+      <form action="#" class="mt-8 space-y-5">
+        <div>
+          <label for="name" class="mb-1 block text-sm font-medium">Name</label>
+          <input type="text" id="name" name="name" required placeholder="Jane Doe" class="field" />
+        </div>
+        <div>
+          <label for="email" class="mb-1 block text-sm font-medium">Email</label>
+          <input type="email" id="email" name="email" required placeholder="jane@example.com" class="field" />
+        </div>
+        <div>
+          <label for="message" class="mb-1 block text-sm font-medium">Message</label>
+          <textarea id="message" name="message" rows="5" required placeholder="What are you building?" class="field"></textarea>
+        </div>
+        <button type="submit" class="btn-primary w-full md:w-auto">Send message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="border-t border-secondary-500/10 bg-dominant-100/60 dark:border-dominant-100/10 dark:bg-dominant-800/60">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-8 text-sm text-secondary-500 dark:text-dominant-100/60 md:flex-row md:px-8">
+      <p>&copy; 2026 KWKC Hardware. All rights reserved.</p>
+      <p>Open Mon–Sat · 7am–6pm</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
