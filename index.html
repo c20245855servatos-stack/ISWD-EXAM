@@ -29,28 +29,52 @@
       .btn-primary {
         @apply inline-flex items-center justify-center gap-2 rounded-lg
                bg-accent-500 px-6 py-3 text-sm font-semibold text-dominant-50
-               shadow-md shadow-accent-500/30
+               shadow-lg shadow-accent-500/40 backdrop-blur-sm
+               transition-colors
                hover:bg-accent-600 focus-visible:outline-2
                focus-visible:outline-offset-2 focus-visible:outline-accent-600
                dark:bg-accent-500 dark:hover:bg-accent-400 dark:text-dominant-900;
       }
+
       .field {
-        @apply w-full rounded-lg border border-secondary-500/25 bg-white
-               px-4 py-3 text-dominant-900 placeholder:text-secondary-500/50
-               focus:border-accent-500 focus:outline-none focus:ring-2
+        @apply w-full rounded-xl border border-white/40 bg-white/60 px-4 py-3
+               text-dominant-900 placeholder:text-secondary-500/60
+               shadow-inner backdrop-blur-md
+               focus:border-accent-500 focus:bg-white/80 focus:outline-none focus:ring-2
                focus:ring-accent-500/30
-               dark:border-dominant-100/15 dark:bg-dominant-800
-               dark:text-dominant-50 dark:placeholder:text-dominant-100/40;
+               dark:border-dominant-100/15 dark:bg-dominant-800/50
+               dark:text-dominant-50 dark:placeholder:text-dominant-100/40
+               dark:focus:bg-dominant-800/70;
+      }
+
+      .glass-card {
+        @apply rounded-2xl border border-white/40 bg-white/50 p-6
+               shadow-xl shadow-secondary-500/10 backdrop-blur-lg
+               dark:border-dominant-100/15 dark:bg-dominant-800/40
+               dark:shadow-black/30;
+      }
+
+      .glass-panel {
+        @apply border border-white/40 bg-white/40 backdrop-blur-lg
+               shadow-xl shadow-secondary-500/10
+               dark:border-dominant-100/15 dark:bg-dominant-900/40
+               dark:shadow-black/30;
       }
     }
   </style>
 </head>
 
-<body class="bg-dominant-50 text-dominant-800 antialiased dark:bg-dominant-900 dark:text-dominant-50">
+<body class="relative min-h-screen overflow-x-hidden bg-dominant-50 text-dominant-800 antialiased dark:bg-dominant-900 dark:text-dominant-50">
+
+  <div aria-hidden="true" id="ambientBlobs" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="blob absolute -top-40 -left-40 h-96 w-96 rounded-full bg-accent-400/40 blur-3xl dark:bg-accent-500/20"></div>
+    <div class="blob absolute top-1/3 -right-32 h-[28rem] w-[28rem] rounded-full bg-secondary-500/30 blur-3xl dark:bg-secondary-500/20"></div>
+    <div class="blob absolute bottom-0 left-1/3 h-80 w-80 rounded-full bg-accent-500/20 blur-3xl dark:bg-accent-400/15"></div>
+  </div>
 
   <div id="progressBar" class="fixed left-0 top-0 z-50 h-1 w-0 bg-accent-500"></div>
 
-  <header class="sticky top-0 z-40 border-b border-secondary-500/10 bg-dominant-50/85 backdrop-blur dark:border-dominant-100/10 dark:bg-dominant-900/85">
+  <header id="siteHeader" class="sticky top-0 z-40 border-b border-white/40 bg-white/40 backdrop-blur-xl dark:border-dominant-100/10 dark:bg-dominant-900/40">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-8">
       <a href="#hero" class="text-lg font-bold tracking-tight">
         KWKC<span class="text-accent-500">.</span>Hardware
@@ -63,7 +87,7 @@
           <li class="hidden md:block"><a href="#contact" class="hover:text-accent-500 dark:hover:text-accent-400">Contact</a></li>
           <li>
             <button id="darkModeToggle" type="button" aria-label="Toggle dark mode"
-              class="flex h-9 w-9 items-center justify-center rounded-lg border border-secondary-500/20 text-secondary-500 hover:bg-secondary-500/10 dark:border-dominant-100/20 dark:text-dominant-100 dark:hover:bg-dominant-100/10">
+              class="flex h-9 w-9 items-center justify-center rounded-lg border border-white/50 bg-white/40 text-secondary-500 backdrop-blur-md hover:bg-white/60 dark:border-dominant-100/20 dark:bg-dominant-800/50 dark:text-dominant-100 dark:hover:bg-dominant-800/70">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block h-5 w-5 dark:hidden" aria-hidden="true">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
               </svg>
@@ -85,15 +109,18 @@
           <p data-intro class="mb-4 text-sm font-semibold uppercase tracking-widest text-accent-600 dark:text-accent-400">
             Your neighborhood hardware store
           </p>
-          <h1 data-intro class="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+
+          <h1 data-intro class="hero-headline text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
             Tools that last.<br />
             <span class="text-secondary-500 dark:text-accent-400">Advice that helps.</span>
           </h1>
-          <p data-intro class="mt-6 max-w-md text-base text-secondary-500 dark:text-dominant-100/75 md:text-lg">
+
+          <p data-intro class="hero-copy mt-6 max-w-md text-base text-secondary-500 dark:text-dominant-100/75 md:text-lg">
             From a single hinge to a full renovation — KWKC Hardware stocks the supplies
             and shares the know-how to get the job done right.
           </p>
-          <div data-intro class="mt-8 flex flex-wrap items-center gap-4">
+
+          <div data-intro class="hero-cta mt-8 flex flex-wrap items-center gap-4">
             <a href="#contact" class="btn-primary">Visit the store</a>
             <button id="replayBtn" type="button"
               class="text-sm font-semibold underline-offset-4 hover:underline">Replay intro</button>
@@ -101,13 +128,20 @@
         </div>
 
         <div data-intro class="relative">
-          <div class="aspect-[4/5] w-full rounded-3xl bg-gradient-to-br from-secondary-500 via-secondary-600 to-accent-500 shadow-2xl shadow-secondary-500/30"></div>
+          <div class="hero-image aspect-[4/5] w-full overflow-hidden rounded-3xl border border-white/40 shadow-2xl shadow-secondary-500/30 backdrop-blur-sm dark:border-dominant-100/20">
+            <img
+              src="https://i.pinimg.com/736x/9d/15/03/9d15034a23182dde0725eb6d42ce0092.jpg"
+              alt="Tools laid out on a workbench"
+              loading="eager"
+              class="h-full w-full object-cover"
+            />
+          </div>
         </div>
       </div>
     </section>
 
     <section id="services" class="reveal mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24">
-      <h2 class="text-3xl font-bold tracking-tight md:text-4xl">What we do</h2>
+      <h2 class="section-title text-3xl font-bold tracking-tight md:text-4xl">What we do</h2>
       <p class="mt-4 max-w-2xl text-secondary-500 dark:text-dominant-100/75">
         We stock quality tools and building supplies for pros and weekend warriors alike.
         Need a hand? Our staff are licensed tradespeople who love to explain the why —
@@ -115,15 +149,15 @@
       </p>
 
       <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <li class="rounded-2xl border border-secondary-500/10 bg-white p-6 shadow-sm dark:border-dominant-100/10 dark:bg-dominant-800">
+        <li class="services-card glass-card">
           <h3 class="text-lg font-semibold">Tools &amp; Fasteners</h3>
           <p class="mt-2 text-sm text-secondary-500 dark:text-dominant-100/70">Hand tools, power tools, and every screw, bolt, and anchor in between.</p>
         </li>
-        <li class="rounded-2xl border border-secondary-500/10 bg-white p-6 shadow-sm dark:border-dominant-100/10 dark:bg-dominant-800">
+        <li class="services-card glass-card">
           <h3 class="text-lg font-semibold">Lumber &amp; Building</h3>
           <p class="mt-2 text-sm text-secondary-500 dark:text-dominant-100/70">Cut-to-size timber, plywood, drywall, and insulation — in stock daily.</p>
         </li>
-        <li class="rounded-2xl border border-secondary-500/10 bg-white p-6 shadow-sm dark:border-dominant-100/10 dark:bg-dominant-800">
+        <li class="services-card glass-card">
           <h3 class="text-lg font-semibold">Repair Advice</h3>
           <p class="mt-2 text-sm text-secondary-500 dark:text-dominant-100/70">Free walk-in consultations with staff who've worked the trades.</p>
         </li>
@@ -131,28 +165,36 @@
     </section>
 
     <section id="work" class="reveal mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24">
-      <h2 class="text-3xl font-bold tracking-tight md:text-4xl">Featured this month</h2>
+      <h2 class="section-title text-3xl font-bold tracking-tight md:text-4xl">Featured this month</h2>
       <p class="mt-4 max-w-2xl text-secondary-500 dark:text-dominant-100/75">
         A rotating selection of products our customers love — and the projects they've built with them.
       </p>
 
       <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <article class="overflow-hidden rounded-2xl border border-secondary-500/10 bg-white shadow-sm dark:border-dominant-100/10 dark:bg-dominant-800">
-          <div class="aspect-video bg-gradient-to-br from-accent-400 to-accent-600"></div>
+        <article class="feature-card glass-card overflow-hidden !p-0">
+          <div class="aspect-video overflow-hidden">
+            <img src="https://i.pinimg.com/1200x/18/49/0e/18490eef9e261b004d918ab383c88577.jpg" alt="Cordless drill kit" loading="lazy" class="h-full w-full object-cover" />
+          </div>
           <div class="p-6">
             <h3 class="text-lg font-semibold">Cordless Drill Kit</h3>
             <p class="mt-2 text-sm text-secondary-500 dark:text-dominant-100/70">20V brushless drill with two batteries and a 40-piece bit set.</p>
           </div>
         </article>
-        <article class="overflow-hidden rounded-2xl border border-secondary-500/10 bg-white shadow-sm dark:border-dominant-100/10 dark:bg-dominant-800">
-          <div class="aspect-video bg-gradient-to-br from-secondary-500 to-secondary-600"></div>
+
+        <article class="feature-card glass-card overflow-hidden !p-0">
+          <div class="aspect-video overflow-hidden">
+            <img src="https://i.pinimg.com/736x/f2/1d/e1/f21de1169589252cba4d080c5e1dd968.jpg" alt="Wooden workbench" loading="lazy" class="h-full w-full object-cover" />
+          </div>
           <div class="p-6">
             <h3 class="text-lg font-semibold">Workbench Bundle</h3>
             <p class="mt-2 text-sm text-secondary-500 dark:text-dominant-100/70">Solid pine bench with a steel vise and magnetic tool strip.</p>
           </div>
         </article>
-        <article class="overflow-hidden rounded-2xl border border-secondary-500/10 bg-white shadow-sm dark:border-dominant-100/10 dark:bg-dominant-800">
-          <div class="aspect-video bg-gradient-to-br from-dominant-800 to-secondary-600"></div>
+
+        <article class="feature-card glass-card overflow-hidden !p-0">
+          <div class="aspect-video overflow-hidden">
+            <img src="https://i.pinimg.com/1200x/6a/9d/66/6a9d66e70949587990afca92e0a912b9.jpg" alt="Paint cans and brushes" loading="lazy" class="h-full w-full object-cover" />
+          </div>
           <div class="p-6">
             <h3 class="text-lg font-semibold">Paint &amp; Finishes</h3>
             <p class="mt-2 text-sm text-secondary-500 dark:text-dominant-100/70">Low-VOC paints, stains, and sealants — mixed in-store to any color.</p>
@@ -162,30 +204,32 @@
     </section>
 
     <section id="contact" class="reveal mx-auto max-w-3xl px-4 py-16 md:px-8 md:py-24">
-      <h2 class="text-3xl font-bold tracking-tight md:text-4xl">Get in touch</h2>
-      <p class="mt-4 text-secondary-500 dark:text-dominant-100/75">
-        Questions about a project? Send us a message and we'll get back to you within a day.
-      </p>
+      <div class="contact-panel glass-panel rounded-3xl p-6 md:p-10">
+        <h2 class="section-title text-3xl font-bold tracking-tight md:text-4xl">Get in touch</h2>
+        <p class="mt-4 text-secondary-500 dark:text-dominant-100/75">
+          Questions about a project? Send us a message and we'll get back to you within a day.
+        </p>
 
-      <form action="#" class="mt-8 space-y-5">
-        <div>
-          <label for="name" class="mb-1 block text-sm font-medium">Name</label>
-          <input type="text" id="name" name="name" required placeholder="Jeremias Servatos" class="field" />
-        </div>
-        <div>
-          <label for="email" class="mb-1 block text-sm font-medium">Email</label>
-          <input type="email" id="email" name="email" required placeholder="servatosj@example.com" class="field" />
-        </div>
-        <div>
-          <label for="message" class="mb-1 block text-sm font-medium">Message</label>
-          <textarea id="message" name="message" rows="5" required placeholder="What are you building?" class="field"></textarea>
-        </div>
-        <button type="submit" class="btn-primary w-full md:w-auto">Send message</button>
-      </form>
+        <form action="#" class="mt-8 space-y-5">
+          <div>
+            <label for="name" class="mb-1 block text-sm font-medium">Name</label>
+            <input type="text" id="name" name="name" required placeholder="Jeremias Servatos" class="field" />
+          </div>
+          <div>
+            <label for="email" class="mb-1 block text-sm font-medium">Email</label>
+            <input type="email" id="email" name="email" required placeholder="servatosj@example.com" class="field" />
+          </div>
+          <div>
+            <label for="message" class="mb-1 block text-sm font-medium">Message</label>
+            <textarea id="message" name="message" rows="5" required placeholder="What are you building?" class="field"></textarea>
+          </div>
+          <button type="submit" class="btn-primary w-full md:w-auto">Send message</button>
+        </form>
+      </div>
     </section>
   </main>
 
-  <footer class="border-t border-secondary-500/10 bg-dominant-100/60 dark:border-dominant-100/10 dark:bg-dominant-800/60">
+  <footer id="siteFooter" class="border-t border-white/40 bg-white/40 backdrop-blur-xl dark:border-dominant-100/10 dark:bg-dominant-900/40">
     <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-8 text-sm text-secondary-500 dark:text-dominant-100/60 md:flex-row md:px-8">
       <p>&copy; 2026 KWKC Hardware. All rights reserved.</p>
       <p>Open Mon-Sat · 7am-6pm</p>
