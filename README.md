@@ -1,6 +1,6 @@
 # KWKC Hardware
 
-**Repository:** https://github.com/c20245855servatos-stack/ISWD-EXAM.git
+**Live site:** https://c20245855servatos-stack.github.io/ISWD-EXAM/
 
 ## About
 
@@ -85,11 +85,11 @@ the page is fully visible and usable — no motion, no hidden elements.
 
 ## File structure
 
-kwkc-hardware/
-├── index.html ← markup + Tailwind theme tokens + @apply component classes
-├── script.js ← dark mode, GSAP intro, scrubbed scroll effects
-└── README.md ← this file
-
+| File | Description |
+| :--- | :--- |
+| `index.html` | The main HTML structure. Contains the Tailwind CSS setup, custom design tokens, glassmorphism component classes, and all page content. |
+| `script.js` | All JavaScript logic. Handles the dark mode toggle, GSAP page-load intro, and all scrubbed ScrollTrigger animations. |
+| `README.md` | Project documentation (this file). |
 
 ## Built With
 
